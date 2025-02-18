@@ -1,0 +1,31 @@
+name: Günlük Duyuru Güncelleme
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Her gün gece 00:00'da çalıştırır
+
+jobs:
+  update_json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu çek
+        uses: actions/checkout@v3
+        
+      - name: Python kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Gerekli kütüphaneleri yükle
+        run: pip install requests beautifulsoup4
+
+      - name: Python scriptini çalıştır
+        run: python duyuru.py
+
+      - name: Güncellenmiş JSON'u commit et
+        run: |
+          git config --global user.name "GitHub Bot"
+          git config --global user.email "github-bot@example.com"
+          git add duyurular.json
+          git commit -m "Duyuru JSON'u güncellendi"
+          git push
