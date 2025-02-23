@@ -2,7 +2,7 @@ name: Günlük Duyuru Güncelleme
 
 on:
   schedule:
-    - cron: '1 6 * * *'  # Her gün gece 00:00'da çalıştırır
+    - cron: '0 0 * * *'  # Her gün gece 00:00'da çalıştırır
 
 jobs:
   update_json:
