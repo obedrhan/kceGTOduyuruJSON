@@ -26,14 +26,13 @@ jobs:
       - name: Git Kilitlerini Temizle
         run: rm -rf .git/index.lock || true
 
-            - name: Güncellenmiş JSON'u commit et
+      - name: Güncellenmiş JSON'u commit et
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --allow-unrelated-histories https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main || true
           git add duyurular.json
           git commit -m "Duyuru JSON'u güncellendi" || echo "No changes to commit"
-          git pull --rebase --autostash https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main || true
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
-
+          git push --force https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git || true
