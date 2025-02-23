@@ -33,3 +33,4 @@ jobs:
           git add duyurular.json
           git commit -m "Duyuru JSON'u güncellendi" || echo "No changes to commit"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+
